@@ -7,20 +7,20 @@
 #include "Screen.h"
 #include "User.h"
 
-Screen *BaseObject::MainScreen = nullptr;
-Music *BaseObject::musicControl = nullptr;
+App *BaseObject::MainScreen = nullptr;
+Audio *BaseObject::musicControl = nullptr;
 int Time::time = 0;
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
     if (displayMenu() == 0) {
         return 0;
     }
 beginGame:
     // -------------------- Music init --------------------
-    BaseObject::musicControl = new Music;
+    BaseObject::musicControl = new Audio;
     BaseObject::musicControl->Init();
     BaseObject::musicControl->PlaybackgroundMusic();
     // -------------------- Game init --------------------
-    BaseObject::MainScreen = new Screen;
+    BaseObject::MainScreen = new App;
     BaseObject::MainScreen->init();
     bool is_quit = false;
     Time::time = 0;

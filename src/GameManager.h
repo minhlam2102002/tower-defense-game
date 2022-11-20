@@ -6,14 +6,14 @@ private:
     MachineList machineList;
     vector<Monster *> monsterList;
     BulletList bulletList;
-    Screen MainScreen;
+    App MainScreen;
     BaseObject background;
     bool is_quit;
     TextObject Print_text;
 
 public:
     void displayMenu(){};
-    bool LoadBackGround(BaseObject &g_background, Screen &MainScreen) {
+    bool LoadBackGround(BaseObject &g_background, App &MainScreen) {
         bool ret = g_background.LoadImg("map.png", MainScreen);
         if (ret == false) {
             return false;

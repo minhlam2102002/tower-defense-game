@@ -37,7 +37,7 @@ void getPath(vector<Point> &path, vector<Point> &pathBorder, vector<SDL_Rect> &p
         pathRect.push_back(rect);
     }
 }
-void setPath(vector<Point> &path, Screen &MainScreen) {
+void setPath(vector<Point> &path, App &MainScreen) {
     if (DEBUG_PATH) {
         if (DEBUG_TOWER) {
             if (MainScreen.g_event.type == SDL_MOUSEBUTTONDOWN) {

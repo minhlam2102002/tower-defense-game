@@ -1,14 +1,32 @@
 #include "BaseObject.h"
+
 BaseObject::BaseObject() {
-    p_object_ = NULL;
-    rec_.x = 0;
-    rec_.y = 0;
-    rec_.h = 0;
-    rec_.w = 0;
+    this->obj = nullptr;
 }
 BaseObject::~BaseObject() {
     Free();
 }
+void BaseObject::setRect(const int& x, const int& y) {
+    rect.x = x;
+    rect.y = y;
+}
+void BaseObject::setRect(const Point& p) {
+    rect.x = p.x;
+    rect.y = p.y;
+}
+void BaseObject::setCenterRect(const Point& p) {
+    rect.x = p.x - rect.w / 2;
+    rect.y = p.y - rect.h / 2;
+}
+Point GetPosition() {
+    return Point(rect.x, rect.y);
+}
+Point GetCenterPosition() { 
+    return Point(rect.x + rect.w / 2, rect.y + rect.h / 2); 
+}
+SDL_Rect GetRect() const { return rect; }
+SDL_Rect* GetRectPointer() { return &rect; }
+SDL_Texture* GetObject() const { return obj; }
 bool BaseObject::LoadImg(std::string path) {
     SDL_Texture* new_texture = NULL;
     SDL_Surface* load_surface = IMG_Load(path.c_str());
@@ -16,8 +34,8 @@ bool BaseObject::LoadImg(std::string path) {
         SDL_SetColorKey(load_surface, SDL_TRUE, SDL_MapRGB(load_surface->format, MainScreen->COLOR_KEY_R, MainScreen->COLOR_KEY_B, MainScreen->COLOR_KEY_G));
         new_texture = SDL_CreateTextureFromSurface(MainScreen->g_screen, load_surface);
         if (new_texture != NULL) {
-            rec_.w = load_surface->w;
-            rec_.h = load_surface->h;
+            rect.w = load_surface->w;
+            rect.h = load_surface->h;
         } else {
             cout << "error";
         }
@@ -26,23 +44,23 @@ bool BaseObject::LoadImg(std::string path) {
         cerr << "Error image load: " << IMG_GetError() << endl;
         cout << path << endl;
     }
-    p_object_ = new_texture;
-    if (p_object_ == NULL) {
+    obj = new_texture;
+    if (obj == NULL) {
         cerr << "Error image load: " << IMG_GetError() << endl;
         cout << path << endl;
     }
-    return p_object_ != NULL;
+    return obj != NULL;
 }
 void BaseObject::Render(const SDL_Rect* clip) {
-    SDL_Rect renderquad = {rec_.x, rec_.y, rec_.w, rec_.h};
-    SDL_RenderCopy(MainScreen->g_screen, p_object_, clip, &renderquad);
+    SDL_Rect renderquad = {rect.x, rect.y, rect.w, rect.h};
+    SDL_RenderCopy(MainScreen->g_screen, obj, clip, &renderquad);
 }
 void BaseObject::Free() {
-    if (p_object_ != NULL) {
-        SDL_DestroyTexture(p_object_);
-        p_object_ = NULL;
-        rec_.w = 0;
-        rec_.h = 0;
+    if (obj != NULL) {
+        SDL_DestroyTexture(obj);
+        obj = NULL;
+        rect.w = 0;
+        rect.h = 0;
     }
 }
 

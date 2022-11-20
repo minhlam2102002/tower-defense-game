@@ -1,10 +1,9 @@
 #pragma once
-#include "Screen.h"
-class Music {
+#include "App.h"
+
+class Audio {
 private:
-    // Background Music
     Mix_Music* background_music = NULL;
-    // Sound Effect
     Mix_Chunk* monster_die = NULL;
     Mix_Chunk* set_tower = NULL;
     Mix_Chunk* win_game = NULL;
