@@ -4,28 +4,30 @@
 
 .PHONY = all clean
 
-CC = g++	  # compiler to use
+CC = g++
 LINKERFLAG = -lm
 FLAGS =
 
-LIBS = 
+LIBS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 TARGET = main.cpp
 BIN = main
 
-SRCS := $(wildcard *.cpp)
-SRCS := $(filter-out $(TARGET), $(SRCS))
+# SRCS := $(wildcard *.cpp)
+# SRCS := $(filter-out $(TARGET), $(SRCS))
+
+SRCS = Intro.cpp BaseObject.cpp App.cpp Game.cpp Bullet.cpp Machine.cpp Monster.cpp
 
 HDRS = $(wildcard *.h)
 OBJS = $(SRCS:%.cpp=%.o)
 
-all: $(OBJS) $(TARGET)
+all: $(OBJS) $(BIN) $(TARGET) $(SRCS) $(HDRS)
 
 %.o: %.cpp
 	@echo "Creating object..."
 	${CC} -c $< -o $@ $(LIBS)
 
-%: $(TARGET) $(SRCS) $(HDRS)
+$(BIN): $(TARGET) $(SRCS) $(HDRS)
 	@echo "Compiling.."
 	$(CC) $(LINKERFLAG) $(TARGET) $(OBJS) -o $(BIN) $(LIBS)
 

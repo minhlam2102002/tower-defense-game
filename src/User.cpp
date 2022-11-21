@@ -7,7 +7,7 @@ User::User(int money) {
     this->money = money;
     cur_model_id = 1;
     menu = new BaseObject;
-    menu->LoadImg("Use1.png");
+    menu->loadImage("Use1.png");
     menu->setRect(0, MainScreen->SCREEN_HEIGH - menu->GetRect().h);
     int moneyVal[4] = {300, 500, 700, 1000};
     for (int i = 0; i < 4; i++) {
@@ -16,7 +16,7 @@ User::User(int money) {
     }
 }
 void User::RenderMenu() {
-    menu->Render(NULL);
+    menu->render(NULL);
 }
 void User::AddMachineEvent() {
     switch (MainScreen->g_event.key.keysym.sym) {
@@ -37,7 +37,7 @@ void User::AddMachineEvent() {
             break;
         }
     }
-    menu->LoadImg("Use" + to_string(cur_model_id) + ".png");
+    menu->loadImage("Use" + to_string(cur_model_id) + ".png");
 }
 void User::AddMachine(MachineList* machineList) {
     SDL_Rect rect = machineModel[cur_model_id - 1]->GetRect();

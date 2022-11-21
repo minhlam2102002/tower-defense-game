@@ -8,29 +8,23 @@
 using namespace std;
 
 class App {
+public:
+    static int SCREEN_WIDTH;
+    static int SCREEN_HEIGHT;
 private:
     static App* app;
-    static int SCREEN_WIDTH;
-    static int SCREEN_HEIGH;
-    static int SCREEN_BPP;
-    static int COLOR_KEY_R;
-    static int COLOR_KEY_G;
-    static int COLOR_KEY_B;
-public:
     SDL_Window* window;
     SDL_Renderer* renderer;
     TTF_Font* font;
-    App* getInstance();
+    SDL_Color backgroundColor;
+public:
+    static App* getInstance();
+    static App* createInstance();
+    static SDL_Renderer* getRenderer();
     App();
     ~App();
-    bool init();
+    void setRenderColor(SDL_Color);
+    void clearScreen();
+    void presentScreen();
     void close();
 };
-
-App* App::app = nullptr;
-int App::SCREEN_WIDTH = 600;
-int App::SCREEN_HEIGH = 400;
-int App::SCREEN_BPP = 32;
-int App::COLOR_KEY_R = 255;
-int App::COLOR_KEY_G = 255;
-int App::COLOR_KEY_B = 255;
